@@ -41,48 +41,118 @@ $notifications = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Notifications</title>
+    <title>Sent Notifications</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-       body {
-    background-image: url("https://static.vecteezy.com/system/resources/previews/001/984/880/original/abstract-colorful-geometric-overlapping-background-and-texture-free-vector.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  </style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding-top: 30px;
+      }
+      
+      h2 {
+        text-align: center;
+        color: #007bff;
+      }
+
+      .notifications-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .notification-item {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-item strong {
+        color: #dc3545;
+      }
+
+      .notification-item a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .notification-item a:hover {
+        text-decoration: underline;
+      }
+
+      .notification-item small {
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+
+      .btn-back {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .btn-back:hover {
+        background-color: #0056b3;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .notifications-container {
+          padding: 15px;
+        }
+      }
+
+    </style>
   </head>
   <body>
-    <h2>Notifications</h2>
-    <?php if(empty($notifications)): ?>
-      <p>No new notifications. check back later</p>
-    <?php else: ?>
-      <ul>
-        <?php foreach($notifications as $notification): ?>
-          <li>
-            <?php if(!$notification["read_status"]): ?>
-              <strong>
-            <?php endif; ?>
-            <?php echo $notification["message"]; ?>
-            <?php if(!$notification["read_status"]): ?>
-              </strong>
-              <a href="?mark_read=<?php echo $notification["id"]; ?>">Mark as read</a>
-            <?php endif; ?>
-            <br>
-            <?php if(isset($notification["status"])): ?>
-              <small>Status: <?php echo ucfirst($notification["status"]); ?></small>
-              <?php if(isset($notification["notification_id"])): ?>
-                <br>
-                <small>Notification ID: <?php echo $notification["notification_id"]; ?></small>
-              <?php endif; ?>
-            <?php endif; ?>
-            <br>
-            <small><?php echo date("M d, Y h:i A", strtotime($notification["created_at"])); ?></small>
-          </li>
-        <?php endforeach; ?>
-      </ul>
 
-    <?php endif; ?>
-    <br>
-    <button onclick="window.location.href='dashboard.html'">Go back</button>
-   
+    <?php include 'sidebar.php'; ?>
+    
+    <div class="notifications-container">
+      <h2>Sent Notifications</h2>
+
+      <?php if(empty($notifications)): ?>
+        <p>No new notifications. Check back later.</p>
+      <?php else: ?>
+        <ul class="list-unstyled">
+          <?php foreach($notifications as $notification): ?>
+            <li class="notification-item">
+              <?php if(!$notification["read_status"]): ?>
+                <strong>
+              <?php endif; ?>
+              <?php echo $notification["message"]; ?>
+              <?php if(!$notification["read_status"]): ?>
+                </strong>
+                <a href="?mark_read=<?php echo $notification["id"]; ?>">Mark as read</a>
+              <?php endif; ?>
+              <br>
+              <small><?php echo date("M d, Y h:i A", strtotime($notification["created_at"])); ?></small>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif; ?>
+      
+      <button class="btn-back" onclick="window.location.href='dashboard.html'">Go back</button>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

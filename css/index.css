@@ -19,15 +19,15 @@ body {
   .chart-container .card {
     flex: 1 1 calc(50% - 20px);
     max-width: 100%;
-    height: auto;  /* Automatically adjust based on content */
+    height: auto; 
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
   canvas {
-    width: 100% !important;  /* Force the canvas to take the full width */
-    height: 300px !important;  /* Set a fixed height for all charts */
+    width: 100% !important;  
+    height: 300px !important; 
   }
   
   
@@ -57,3 +57,5 @@ body {
       display: none;
     }
   }
+
+  

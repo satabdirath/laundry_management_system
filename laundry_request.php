@@ -72,6 +72,12 @@ $user_result = mysqli_query($conn, $user_query);
 
   <!-- Include Sidebar -->
   <?php include 'sidebar.php'; ?>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+    <a href="logout.php">Logout</a> |
+    <a href="laundry_request.php">Add Request</a> |
+    <a href="view_request.php">View Requests</a>
+  </div>
 
   <!-- Content Section -->
   <div class="content">
@@ -79,6 +85,16 @@ $user_result = mysqli_query($conn, $user_query);
     <form class="needs-validation" action="" method="post" novalidate>
       <div class="row">
         <div class="col-md-6">
+        <div class="mb-3">
+        <label for="selected_user" class="form-label">Select User:</label>
+        <select name="selected_user" id="selected_user" class="form-control" required>
+          <option value="" disabled selected>Select a user</option>
+          <?php while($user = mysqli_fetch_assoc($user_result)): ?>
+            <option value="<?php echo $user['id']; ?>"><?php echo $user['name']; ?></option>
+          <?php endwhile; ?>
+        </select>
+      </div>
+
           <div class="mb-3">
             <label for="pickup_date" class="form-label">Pickup Date:</label>
             <input type="date" name="pickup_date" id="pickup_date" class="form-control" required>
@@ -122,23 +138,12 @@ $user_result = mysqli_query($conn, $user_query);
         </div>
       </div>
 
-      <!-- Dropdown to select user -->
-      <div class="mb-3">
-        <label for="selected_user" class="form-label">Select User:</label>
-        <select name="selected_user" id="selected_user" class="form-control" required>
-          <option value="" disabled selected>Select a user</option>
-          <?php while($user = mysqli_fetch_assoc($user_result)): ?>
-            <option value="<?php echo $user['id']; ?>"><?php echo $user['name']; ?></option>
-          <?php endwhile; ?>
-        </select>
-      </div>
-
+    
       <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-      <a href="dashboard.html" class="btn btn-secondary ms-2">Go back</a>
+      <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
     </form>
   </div>
 
-  <!-- Bootstrap JS (Optional) -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

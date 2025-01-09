@@ -27,85 +27,12 @@ if(isset($_POST["submit"])){
   <head>
     <meta charset="utf-8">
     <title>Forgot Password</title>
-    <style>
-      body {
-        background-image: url('https://static.vecteezy.com/system/resources/previews/001/984/880/original/abstract-colorful-geometric-overlapping-background-and-texture-free-vector.jpg');
-        background-size: cover;
-        font-family: Arial, sans-serif;
-        background-color: #F9F9F9;
-      }
-   
-      form {
-        border: 3px solid #f1f1f1;
-        background-color: #ffffff;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-   
-      h2 {
-        text-align: center;
-        margin-top: 0;
-      }
-   
-      input[type=text], input[type=password] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-      }
-   
-      button[name=submit] {
-        background-color: purple;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        float: left;
-      }
-   
-      button[name=submit]:hover {
-        opacity: 0.8;
-      }
-   
-      a[href="login.php"] {
-        float: right;
-      }
-   
-      .container {
-        padding: 16px;
-      }
-   
-      span.psw {
-        float: right;
-        padding-top: 16px;
-      }
-   
-      .clearfix::after {
-        content: "";
-        clear: both;
-        display: table;
-      }
-   
-      @media screen and (max-width: 300px) {
-        span.psw {
-          display: block;
-          float: none;
-        }
-   
-        button[name=submit] {
-          width: 100%;
-        }
-      }
-    </style>
+    <link href="css/auth.css" rel="stylesheet">
   </head>
   <body>
-  <form method="post">
-    <h1>Forgot Password</h1>
+  <div class="login-container">
+      <h2>Forgot Password</h2>
+      <form method="post">
     <?php if(isset($message)) echo "<p>$message</p>"; ?>
    
       <label for="username">Username:</label>
@@ -115,7 +42,11 @@ if(isset($_POST["submit"])){
       <input type="password" name="new_password" required>
       <br>
       <button type="submit" name="submit">Reset Password</button>
-      <a href="login.php">Back to Login</a>
+      <div class="form-links">
+          <a href="registration.php"></a>
+          <a href="login.php">Back to Login</a>
+        </div>
+      
     </form>
   </body>
 </html>
