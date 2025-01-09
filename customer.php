@@ -48,7 +48,9 @@ $result = mysqli_query($conn, $query);
               </tr>
             <?php endwhile; ?>
           </tbody>
+          
         </table>
+        <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
       </div>
     <?php else: ?>
       <p>No customers found.</p>

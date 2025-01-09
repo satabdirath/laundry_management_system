@@ -90,6 +90,7 @@ mysqli_close($conn);
               <?php endforeach; ?>
             </tbody>
           </table>
+          <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
         </div>
       <?php else: ?>
         <p>No laundry requests found. <a href="laundry_request.php">Book your request now!</a></p>

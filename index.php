@@ -156,12 +156,7 @@ $conn->close();
   <!-- Sidebar -->
   <?php include 'sidebar.php'; ?>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <a href="logout.php">Logout</a> |
-    <a href="laundry_request.php">Add Request</a> |
-    <a href="view_request.php">View Requests</a>
-  </div>
+
 
   <!-- Content -->
   <div class="content">

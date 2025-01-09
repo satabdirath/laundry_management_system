@@ -44,81 +44,7 @@ $notifications = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <title>Sent Notifications</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        padding-top: 30px;
-      }
-      
-      h2 {
-        text-align: center;
-        color: #007bff;
-      }
-
-      .notifications-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .notification-item {
-        padding: 15px;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 10px;
-      }
-
-      .notification-item:last-child {
-        border-bottom: none;
-      }
-
-      .notification-item strong {
-        color: #dc3545;
-      }
-
-      .notification-item a {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: bold;
-      }
-
-      .notification-item a:hover {
-        text-decoration: underline;
-      }
-
-      .notification-item small {
-        color: #6c757d;
-        font-size: 0.9rem;
-      }
-
-      .btn-back {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-      }
-
-      .btn-back:hover {
-        background-color: #0056b3;
-        cursor: pointer;
-      }
-
-      @media (max-width: 768px) {
-        .notifications-container {
-          padding: 15px;
-        }
-      }
-
-    </style>
+  <link href="css/notification.css" rel="stylesheet">
   </head>
   <body>
 
@@ -148,7 +74,7 @@ $notifications = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </ul>
       <?php endif; ?>
       
-      <button class="btn-back" onclick="window.location.href='dashboard.html'">Go back</button>
+      <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
     </div>
 
     <!-- Bootstrap JS and dependencies -->

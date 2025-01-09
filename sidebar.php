@@ -14,7 +14,7 @@
     <a href="view_request.php">View Requests</a>
     <a href="customer.php">Customers</a>
     <a href="notification.php">Notifications</a>
-    <a href="forgot_password.php">Change Password</a>
+   <!-- <a href="forgot_password.php">Change Password</a>-->
     <a href="logout.php">Logout</a>
   </div>
 
