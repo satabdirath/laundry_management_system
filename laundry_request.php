@@ -7,6 +7,7 @@ if(!isset($_SESSION["login"])){
 
 if(isset($_POST["submit"])){
   $user_id = $_SESSION["id"];
+  $user_id = $_POST["selected_user"]; // Get the selected user id from dropdown
   $pickup_date = $_POST["pickup_date"];
   $pickup_time = $_POST["pickup_time"];
   $delivery_date = $_POST["delivery_date"];
@@ -17,7 +18,9 @@ if(isset($_POST["submit"])){
   $price = calculate_price($wash_fold, $wash_iron, $dry_clean);
   $status = "Pending";
   
-  $sql = "INSERT INTO laundry_requests (user_id, pickup_date, pickup_time, delivery_date, delivery_time, wash_fold, wash_iron, dry_clean, price, status) VALUES ('$user_id', '$pickup_date', '$pickup_time', '$delivery_date', '$delivery_time', '$wash_fold', '$wash_iron', '$dry_clean', '$price', '$status')";
+  // Insert the data along with the selected user id
+  $sql = "INSERT INTO laundry_requests ( user_id, pickup_date, pickup_time, delivery_date, delivery_time, wash_fold, wash_iron, dry_clean, price, status) 
+          VALUES ( '$user_id', '$pickup_date', '$pickup_time', '$delivery_date', '$delivery_time', '$wash_fold', '$wash_iron', '$dry_clean', '$price', '$status')";
 
   if(mysqli_query($conn, $sql)){
     echo "<script> alert('Laundry request submitted successfully.'); </script>";
@@ -28,115 +31,118 @@ if(isset($_POST["submit"])){
 }
 
 function calculate_price($wash_fold, $wash_iron, $dry_clean){
-  // Calculation logic goes here
+  $wash_fold_price = 10.5; // $10.5 per pound
+  $wash_iron_price = 20.0; // $20.0 per pound
+  $dry_clean_price = 30.5; // $30.5 per item
   
-    $wash_fold_price = 10.5; // $10.5 per pound
-    $wash_iron_price = 20.0; // $20.0 per pound
-    $dry_clean_price = 30.5; // $30.5 per item
-    
-    $total_price = $wash_fold * $wash_fold_price + $wash_iron * $wash_iron_price + $dry_clean * $dry_clean_price;
-    
-    // Round the price to 2 decimal places
-    $total_price = round($total_price, 2);
-    
-    return $total_price;
-
-  
+  $total_price = $wash_fold * $wash_fold_price + $wash_iron * $wash_iron_price + $dry_clean * $dry_clean_price;
+  return round($total_price, 2);
 }
 
+// Fetch users from the database
+$user_query = "SELECT id, name FROM users";
+$user_result = mysqli_query($conn, $user_query);
 ?>
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Laundry Request Form</title>
-    <style>
-    body {
-      background-image: url('https://static.vecteezy.com/system/resources/previews/001/984/880/original/abstract-colorful-geometric-overlapping-background-and-texture-free-vector.jpg');
-      background-size: cover;
-      font-family: Arial, sans-serif;
-      background-color: #F9F9F9;
-    }
-    
-    form {
-      border: 3px solid #f1f1f1;
-      background-color: #ffffff;
-      max-width: 500px;
-      margin: 0 auto;
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Request</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <style>
+    .content {
+      margin-left: 250px;
       padding: 20px;
     }
-    
-    h2 {
-      text-align: center;
-      margin-top: 0;
-    }
-    
-    input[type=text], input[type=password], input[type=number], input[type=date], input[type=time] {
-      width: 100%;
-      padding: 12px 20px;
-      margin-bottom: 16px;
-      display: block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    
-    button {
-      background-color: purple;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-    }
-    
-    button:hover {
-      opacity: 0.8;
-    }
-    
-    .container {
-      padding: 16px;
-    }
 
-    @media screen and (max-width: 300px) {
-      span.psw {
-        display: block;
-        float: none;
-      }
-      .registerbtn {
-        width: 100%;
+    @media (max-width: 767px) {
+      .content {
+        margin-left: 0;
       }
     }
   </style>
-  </head>
-  <body>
-    <h2>Laundry Request Form</h2>
-    <form class="" action="" method="post">
-      <label for="pickup_date">Pickup Date:</label>
-      <input type="date" name="pickup_date" id="pickup_date" required> 
-      
-      <label for="pickup_time">Pickup Time:</label>
-      <input type="time" name="pickup_time" id="pickup_time" required> 
-      
-      <label for="delivery_date">Delivery Date:</label>
-      <input type="date" name="delivery_date" id="delivery_date" required> 
-      
-      <label for="delivery_time">Delivery Time:</label>
-      <input type="time" name="delivery_time" id="delivery_time" required> 
-      
-      <label for="wash_fold">Wash &amp; Fold (number of clothes):</label>
-      <input type="number" name="wash_fold" id="wash_fold" min="0" value="0"> 
-      
-      <label for="wash_iron">Wash &amp; Iron (number of clothes):</label>
-      <input type="number" name="wash_iron" id="wash_iron" min="0" value="0"> 
-      
-      <label for="dry_clean">Dry Clean (number of clothes):</label>
-      <input type="number" name="dry_clean" id="dry_clean" min="0" value="0"> 
-      
-      <button type="submit" name="submit">Submit</button>
+</head>
+<body>
 
-      <a href="dashboard.html" style="text-decoration: none; margin-right: 20px;">Go back</a>
+  <!-- Include Sidebar -->
+  <?php include 'sidebar.php'; ?>
+
+  <!-- Content Section -->
+  <div class="content">
+    <h2 class="mb-4">Laundry Request Form</h2>
+    <form class="needs-validation" action="" method="post" novalidate>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="pickup_date" class="form-label">Pickup Date:</label>
+            <input type="date" name="pickup_date" id="pickup_date" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="pickup_time" class="form-label">Pickup Time:</label>
+            <input type="time" name="pickup_time" id="pickup_time" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="delivery_date" class="form-label">Delivery Date:</label>
+            <input type="date" name="delivery_date" id="delivery_date" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="delivery_time" class="form-label">Delivery Time:</label>
+            <input type="time" name="delivery_time" id="delivery_time" class="form-control" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="wash_fold" class="form-label">Wash &amp; Fold (number of clothes):</label>
+            <input type="number" name="wash_fold" id="wash_fold" class="form-control" min="0" value="0">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="wash_iron" class="form-label">Wash &amp; Iron (number of clothes):</label>
+            <input type="number" name="wash_iron" id="wash_iron" class="form-control" min="0" value="0">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label for="dry_clean" class="form-label">Dry Clean (number of clothes):</label>
+            <input type="number" name="dry_clean" id="dry_clean" class="form-control" min="0" value="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown to select user -->
+      <div class="mb-3">
+        <label for="selected_user" class="form-label">Select User:</label>
+        <select name="selected_user" id="selected_user" class="form-control" required>
+          <option value="" disabled selected>Select a user</option>
+          <?php while($user = mysqli_fetch_assoc($user_result)): ?>
+            <option value="<?php echo $user['id']; ?>"><?php echo $user['name']; ?></option>
+          <?php endwhile; ?>
+        </select>
+      </div>
+
+      <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+      <a href="dashboard.html" class="btn btn-secondary ms-2">Go back</a>
     </form>
-  </body>
+  </div>
+
+  <!-- Bootstrap JS (Optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
 </html>
+
+
 
