@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2023 at 03:33 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jan 09, 2025 at 01:06 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,9 +48,16 @@ CREATE TABLE `laundry_requests` (
 --
 
 INSERT INTO `laundry_requests` (`id`, `user_id`, `pickup_date`, `pickup_time`, `delivery_date`, `delivery_time`, `wash_fold`, `wash_iron`, `dry_clean`, `price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, '2023-04-08', '10:00:00', '2023-04-10', '10:00:00', 3, 5, 1, '0.00', 'confirm', '2023-04-07 05:54:11', '2023-04-08 06:09:14'),
-(2, 5, '2023-04-08', '12:00:00', '2023-04-14', '12:00:00', 3, 9, 2, '29.50', 'confirm', '2023-04-07 11:36:39', '2023-04-08 06:26:07'),
-(3, 5, '2023-04-10', '11:01:00', '2023-04-15', '12:02:00', 7, 6, 3, '285.00', 'confirm', '2023-04-08 06:37:19', '2023-04-08 07:38:29');
+(1, 6, '2025-01-05', '10:00:00', '2025-01-06', '18:00:00', 3, 2, 1, 150.00, 'Pending', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(2, 6, '2025-01-10', '09:30:00', '2025-01-11', '17:30:00', 5, 3, 2, 200.00, 'Completed', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(3, 7, '2025-01-15', '11:00:00', '2025-01-16', '19:00:00', 2, 4, 1, 180.00, 'In Progress', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(4, 6, '2024-12-12', '14:00:00', '2024-12-13', '20:00:00', 4, 1, 0, 100.00, 'Cancelled', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(5, 7, '2024-12-20', '15:00:00', '2024-12-21', '18:30:00', 3, 2, 1, 170.00, 'Pending', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(6, 6, '2025-03-10', '13:00:00', '2025-03-11', '16:00:00', 2, 3, 0, 120.00, 'Completed', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(7, 7, '2025-05-22', '09:00:00', '2025-05-23', '15:30:00', 4, 5, 2, 250.00, 'Pending', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(8, 6, '2024-06-18', '10:30:00', '2024-06-19', '17:00:00', 3, 2, 1, 160.00, 'Completed', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(9, 6, '2024-09-15', '14:00:00', '2024-09-16', '19:30:00', 1, 1, 0, 80.00, 'Cancelled', '2025-01-09 10:36:10', '2025-01-09 10:36:10'),
+(10, 6, '2024-11-25', '11:00:00', '2024-11-26', '16:30:00', 5, 4, 3, 300.00, 'In Progress', '2025-01-09 10:36:10', '2025-01-09 10:36:10');
 
 -- --------------------------------------------------------
 
@@ -87,21 +94,30 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `reset_token` varchar(255) DEFAULT NULL
+  `reset_token` varchar(255) DEFAULT NULL,
+  `phone` bigint(20) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `user_Type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `reset_token`) VALUES
-(1, '', '', '', NULL),
-(2, '', '', '', NULL),
-(3, '', '', '', NULL),
-(4, '', '', '', NULL),
-(5, 'satabdi rath', 'satabdirath2000@gmail.com', 'sss', '242c92819af915e549616d998f3a8027'),
-(6, 'minati rath', 'minatirath@gmail.com', 'mmm', NULL),
-(7, 'satabdi', 'fff@example.com', 'rrrr', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `reset_token`, `phone`, `address`, `user_Type`) VALUES
+(5, 'satabdi rath', 'satabdirath2000@gmail.com', 'sss', '242c92819af915e549616d998f3a8027', NULL, NULL, 1),
+(6, 'john doe', 'john@gmail.com', 'mmm', NULL, 9147483647, '554 Middle Street, Cheyenne, Colorado - 43727, Singapore', 0),
+(7, 'jon smith', 'john smith@example.com', 'rrrr', NULL, 9876543210, '77950 Warren Close, Huntington Park, New York - 93067, Bangladesh', 0),
+(8, 'Alice Brown', 'aliceb@example.com', 'password123', NULL, 1234567890, '123 Elm Street, Springfield, IL - 62701', 1),
+(9, 'Bob White', 'bobw@example.com', 'password456', NULL, 9876543210, '456 Oak Avenue, Los Angeles, CA - 90001', 0),
+(10, 'Charlie Green', 'charlieg@example.com', 'password789', NULL, 5551234567, '789 Pine Road, Boston, MA - 02110', 1),
+(11, 'Diana Gray', 'dianag@example.com', 'password987', NULL, 8887776666, '101 Maple Drive, Dallas, TX - 75201', 0),
+(12, 'Eve Black', 'eveb@example.com', 'password654', NULL, 4443332222, '202 Birch Lane, Miami, FL - 33101', 1),
+(13, 'Frank Blue', 'frankb@example.com', 'password321', NULL, 7775554444, '303 Cedar Boulevard, Seattle, WA - 98101', 0),
+(14, 'Grace Yellow', 'gracey@example.com', 'password000', NULL, 6665554444, '404 Pinecrest Avenue, Chicago, IL - 60601', 1),
+(15, 'Hank Red', 'hankr@example.com', 'password111', NULL, 9998887777, '505 Birch Crescent, New York, NY - 10001', 0),
+(16, 'Ivy Violet', 'ivyv@example.com', 'password222', NULL, 5554443333, '606 Oak Ridge, San Francisco, CA - 94102', 1),
+(17, 'Jack Orange', 'jacko@example.com', 'password333', NULL, 4443332222, '707 Cherry Lane, Phoenix, AZ - 85001', 0);
 
 --
 -- Indexes for dumped tables
@@ -135,7 +151,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `laundry_requests`
 --
 ALTER TABLE `laundry_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -147,7 +163,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
