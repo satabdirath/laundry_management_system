@@ -129,62 +129,76 @@ mysqli_close($conn);
     </div>
 
     <div class="content">
-      <h2>Laundry Requests</h2>
-      
-      <?php if (!empty($laundry_requests)): ?>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Name & Address</th>
-                <th>Order</th>
-                <th>Pickup Date</th>
-                <th>Pickup Time</th>
-                <th>Delivery Date</th>
-                <th>Delivery Time</th>
-                <th>Price</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($laundry_requests as $row): ?>
-                <tr>
-                  <!-- Combine Name and Address -->
-                  <td>
-                    <?= htmlspecialchars($row['name']); ?><br>
-                    <?= htmlspecialchars($row['address']); ?>
-                  </td>
+  <h2>Laundry Requests</h2>
+  
+  <?php if (!empty($laundry_requests)): ?>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name & Address</th>
+            <th>Order</th>
+            <th>Pickup</th>
+            <th>Delivery</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($laundry_requests as $row): ?>
+            <tr>
+              <!-- Combine Name and Address -->
+              <td>
+                <?= htmlspecialchars($row['name']); ?><br>
+                <?= htmlspecialchars($row['address']); ?>
+              </td>
 
-                  <!-- Combine Wash & Fold, Wash & Iron, and Dry Clean -->
-                  <td>
-                    <?php if (!empty($row['wash_fold'])): ?>
-                      <div>Wash & Fold: <?= htmlspecialchars($row['wash_fold']); ?></div>
-                    <?php endif; ?>
-                    <?php if (!empty($row['wash_iron'])): ?>
-                      <div>Wash & Iron: <?= htmlspecialchars($row['wash_iron']); ?></div>
-                    <?php endif; ?>
-                    <?php if (!empty($row['dry_clean'])): ?>
-                      <div>Dry Clean: <?= htmlspecialchars($row['dry_clean']); ?></div>
-                    <?php endif; ?>
-                  </td>
+              <!-- Combine Wash & Fold, Wash & Iron, and Dry Clean -->
+              <td>
+                <?php if (!empty($row['wash_fold'])): ?>
+                  <div>Wash & Fold: <?= htmlspecialchars($row['wash_fold']); ?></div>
+                <?php endif; ?>
+                <?php if (!empty($row['wash_iron'])): ?>
+                  <div>Wash & Iron: <?= htmlspecialchars($row['wash_iron']); ?></div>
+                <?php endif; ?>
+                <?php if (!empty($row['dry_clean'])): ?>
+                  <div>Dry Clean: <?= htmlspecialchars($row['dry_clean']); ?></div>
+                <?php endif; ?>
+              </td>
 
-                  <!-- Other Fields -->
-                  <td><?= htmlspecialchars($row['pickup_date']); ?></td>
-                  <td><?= htmlspecialchars($row['pickup_time']); ?></td>
-                  <td><?= htmlspecialchars($row['delivery_date']); ?></td>
-                  <td><?= htmlspecialchars($row['delivery_time']); ?></td>
-                  <td><?= htmlspecialchars(number_format($row['price'], 2)); ?></td>
-                  <td><?= htmlspecialchars($row['status']); ?></td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-          <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
-        </div>
-      <?php else: ?>
-        <p>No laundry requests found. <a href="laundry_request.php">Book your request now!</a></p>
-      <?php endif; ?>
+              <!-- Combine Pickup Date and Time -->
+              <td>
+  <?php 
+  $pickup_datetime = new DateTime($row['pickup_date'] . ' ' . $row['pickup_time']);
+  echo $pickup_datetime->format('jS M Y g:i A');
+  ?>
+</td>
+
+<!-- Combine Delivery Date and Time -->
+<td>
+  <?php 
+  $delivery_datetime = new DateTime($row['delivery_date'] . ' ' . $row['delivery_time']);
+  echo $delivery_datetime->format('jS M Y g:i A');
+  ?>
+</td>
+
+
+              <!-- Price -->
+              <td><?= htmlspecialchars(number_format($row['price'], 2)); ?></td>
+
+              <!-- Status -->
+              <td><?= htmlspecialchars($row['status']); ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+      <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
     </div>
+  <?php else: ?>
+    <p>No laundry requests found. <a href="laundry_request.php">Book your request now!</a></p>
+  <?php endif; ?>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
   </body>
