@@ -1,8 +1,11 @@
 <?php
 require 'config.php';
 
-// Fetch data directly
-$query = "SELECT * FROM laundry_requests"; 
+// Fetch data from both laundry_requests and users tables
+$query = "SELECT laundry_requests.*, users.name, users.address 
+          FROM laundry_requests 
+          JOIN users ON laundry_requests.user_id = users.id"; // Assuming user_id is the common field
+
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
@@ -41,8 +44,78 @@ mysqli_close($conn);
           margin-left: 0;
         }
       }
+
+      /* Table Styles */
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      td {
+        word-wrap: break-word;
+        max-width: 200px; /* Prevent long text overflow */
+      }
+
+      /* Add a little shadow and round the corners of the table */
+      table {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      /* Table Header */
+      th {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 15px;
+      }
+
+      /* Styling the Go Back Button */
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        display: inline-block;
+      }
+
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+
+      /* Mobile Responsive Adjustments */
+      @media (max-width: 768px) {
+        table {
+          width: 100%;
+        }
+
+        td, th {
+          padding: 8px;
+        }
+      }
     </style>
-     
   </head>
   <body>
     <!-- Sidebar -->
@@ -63,13 +136,12 @@ mysqli_close($conn);
           <table class="table table-bordered">
             <thead>
               <tr>
+                <th>Name & Address</th>
+                <th>Order</th>
                 <th>Pickup Date</th>
                 <th>Pickup Time</th>
                 <th>Delivery Date</th>
                 <th>Delivery Time</th>
-                <th>Wash and Fold</th>
-                <th>Wash and Iron</th>
-                <th>Dry Clean</th>
                 <th>Price</th>
                 <th>Status</th>
               </tr>
@@ -77,13 +149,30 @@ mysqli_close($conn);
             <tbody>
               <?php foreach ($laundry_requests as $row): ?>
                 <tr>
+                  <!-- Combine Name and Address -->
+                  <td>
+                    <?= htmlspecialchars($row['name']); ?><br>
+                    <?= htmlspecialchars($row['address']); ?>
+                  </td>
+
+                  <!-- Combine Wash & Fold, Wash & Iron, and Dry Clean -->
+                  <td>
+                    <?php if (!empty($row['wash_fold'])): ?>
+                      <div>Wash & Fold: <?= htmlspecialchars($row['wash_fold']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($row['wash_iron'])): ?>
+                      <div>Wash & Iron: <?= htmlspecialchars($row['wash_iron']); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($row['dry_clean'])): ?>
+                      <div>Dry Clean: <?= htmlspecialchars($row['dry_clean']); ?></div>
+                    <?php endif; ?>
+                  </td>
+
+                  <!-- Other Fields -->
                   <td><?= htmlspecialchars($row['pickup_date']); ?></td>
                   <td><?= htmlspecialchars($row['pickup_time']); ?></td>
                   <td><?= htmlspecialchars($row['delivery_date']); ?></td>
                   <td><?= htmlspecialchars($row['delivery_time']); ?></td>
-                  <td><?= htmlspecialchars($row['wash_fold']); ?></td>
-                  <td><?= htmlspecialchars($row['wash_iron']); ?></td>
-                  <td><?= htmlspecialchars($row['dry_clean']); ?></td>
                   <td><?= htmlspecialchars(number_format($row['price'], 2)); ?></td>
                   <td><?= htmlspecialchars($row['status']); ?></td>
                 </tr>
