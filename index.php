@@ -1,16 +1,11 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "laundry";
+require 'config.php';
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if(!isset($_SESSION["login"])){
+  header("Location: login.php");
 }
+
+$user_id = $_SESSION["id"];
 
 // Fetch total orders
 $total_orders_query = "SELECT COUNT(*) as total_orders FROM laundry_requests";

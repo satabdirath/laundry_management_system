@@ -1,6 +1,11 @@
 <?php
 require 'config.php';
 
+if(!isset($_SESSION["login"])){
+  header("Location: login.php");
+}
+
+$user_id = $_SESSION["id"];
 // Fetch customer data from the users table
 $query = "SELECT id, name, email, phone, address FROM users WHERE user_type = 0";
 $result = mysqli_query($conn, $query);

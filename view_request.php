@@ -1,6 +1,13 @@
 <?php
 require 'config.php';
 
+
+if(!isset($_SESSION["login"])){
+  header("Location: login.php");
+}
+
+$user_id = $_SESSION["id"];
+
 // Fetch data from both laundry_requests and users tables
 $query = "SELECT laundry_requests.*, users.name, users.address 
           FROM laundry_requests 
