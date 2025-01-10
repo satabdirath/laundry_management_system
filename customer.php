@@ -19,20 +19,65 @@ $result = mysqli_query($conn, $query);
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
     .content {
+      margin: 20px auto;
+      max-width: 90%;
       padding: 20px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead th {
+      background: linear-gradient(45deg, #007bff, #0056b3);
+      color: white;
+      border: none;
+      text-transform: uppercase;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #f1f5ff;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        margin: 10px;
+        padding: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Container -->
+  <!-- Sidebar -->
   <?php include 'sidebar.php'; ?>
+
+  <!-- Container -->
   <div class="container content">
-    <h2>Customer Table</h2>
+    <h2 class="text-center mb-4">Customer Table</h2>
 
     <?php if(mysqli_num_rows($result) > 0): ?>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover">
+      <div class="table-responsive" style="margin-left: 150px;">
+        <table class="table table-hover table-bordered text-center align-middle">
           <thead>
             <tr>
               <th>Customer ID</th>
@@ -46,19 +91,18 @@ $result = mysqli_query($conn, $query);
             <?php while($row = mysqli_fetch_assoc($result)): ?>
               <tr>
                 <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['name']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['phone']; ?></td>
-                <td><?php echo $row['address']; ?></td>
+                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                <td><?php echo htmlspecialchars($row['phone']); ?></td>
+                <td><?php echo htmlspecialchars($row['address']); ?></td>
               </tr>
             <?php endwhile; ?>
           </tbody>
-          
         </table>
-        <a href="index.php" class="btn btn-secondary ms-2">Go back</a>
+        <a href="index.php" class="btn btn-secondary mt-3">Go back</a>
       </div>
     <?php else: ?>
-      <p>No customers found.</p>
+      <p class="text-center">No customers found.</p>
     <?php endif; ?>
   </div>
 
