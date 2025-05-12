@@ -6,17 +6,17 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203336.png?updatedAt=1747033459909" alt="project-screenshot" width="1000" height="800/">
+<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203336.png?updatedAt=1747033459909" alt="project-screenshot" width="1000" height="550/">
 
-<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203359.png?updatedAt=1747033457060" alt="project-screenshot" width="1000" height="800/">
+<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203359.png?updatedAt=1747033457060" alt="project-screenshot" width="1000" height="550/">
 
-<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203420.png?updatedAt=1747033459904" alt="project-screenshot" width="1000" height="800/">
+<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203420.png?updatedAt=1747033459904" alt="project-screenshot" width="1000" height="550/">
 
-<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203506.png?updatedAt=1747033460247" alt="project-screenshot" width="1000" height="800/">
+<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203506.png?updatedAt=1747033460247" alt="project-screenshot" width="1000" height="550/">
 
-<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203534.png?updatedAt=1747033459046" alt="project-screenshot" width="1000" height="800/">
+<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203534.png?updatedAt=1747033459046" alt="project-screenshot" width="1000" height="550/">
 
-<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203546.png?updatedAt=1747033459957" alt="project-screenshot" width="1000" height="800/">
+<img src="https://ik.imagekit.io/h39n86spm/Screenshot%202025-05-09%20203546.png?updatedAt=1747033459957" alt="project-screenshot" width="1000" height="550/">
 
 <h2>🛠️ Installation Steps:</h2>
 
